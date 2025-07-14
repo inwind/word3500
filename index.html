@@ -52,6 +52,12 @@
         .sentence-item word {
             font-weight: bold;
         }
+        .sentence-item .english {
+            white-space: pre-wrap;
+        }
+        .sentence-item .chinese {
+            font-style: italic;
+        }
         .sentence-item specil {
             font-style: italic;
             text-decoration: underline;
@@ -110,7 +116,7 @@
         const nextBtn = document.getElementById('next-btn');
         const sentenceNumberDisplay = document.getElementById('sentence-number');
         let sentences = [];
-        let currentIndex = 0;
+        let currentIndex = 39;
 
         // Fetch and parse the json file
         fetch('sentences.json')
@@ -129,6 +135,9 @@
                 console.error('There has been a problem with your fetch operation:', error);
             });
 
+        function xxx(specil_text) {
+            alert(specil_text);
+        }
         function displaySentence() {
             if (sentences.length > 0) {
                 const sentenceData = sentences[currentIndex];
@@ -140,7 +149,10 @@
                         sentenceHTML += `
                             <div class="sentence-item">
                                 <h4>${key}</h4>
-                                <p>${value.toString().replace(/\n/g, '<br>')}</p>
+                                <p>${value.toString().replace(/\n/g, '<br>')
+                                    .replace(/<english>(.*?)<\/english>/g, '<span class="english" onclick="xxx(\'$1\')">📢 $1</span>')
+                                    .replace(/<chinese>(.*?)<\/chinese>/g, '<span class="chinese" onclick="xxx(\'$1\')">$1</span>')}</p>
+
                             </div>
                         `;
                     }
