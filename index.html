@@ -5,116 +5,328 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>100个句子搞定高考3500词</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f7f8fa;
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary-color: #f59e0b;
+            --accent-color: #10b981;
+            --background-primary: #f8fafc;
+            --background-secondary: #ffffff;
+            --background-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-accent: #374151;
+            --border-color: #e5e7eb;
+            --shadow-light: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-large: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius-small: 8px;
+            --radius-medium: 12px;
+            --radius-large: 16px;
         }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 24px;
+            background: var(--background-primary);
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background-gradient);
+            opacity: 0.03;
+            z-index: -1;
+        }
+        
         h1 {
             text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
+            background: var(--background-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            text-shadow: none;
         }
-        #sentence-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-bottom: 20px;
-            min-height: 300px;
+        
+        .app-container {
+            background: var(--background-secondary);
+            border-radius: var(--radius-large);
+            box-shadow: var(--shadow-large);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
+        
+        .header {
+            background: var(--background-gradient);
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            color: white;
+            margin: 0;
+            font-size: 1.875rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            -webkit-text-fill-color: white;
+            background: none;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .header-nav {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        
+        .header-nav .nav-button {
+            padding: 12px 24px;
+            font-size: 14px;
+        }
+        
+        .content-wrapper {
+            padding: 32px;
+        }
+        
         .sentence-item {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eef2f7;
+            margin-bottom: 28px;
+            padding: 24px;
+            background: #fafbfc;
+            border-radius: var(--radius-small);
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+            position: relative;
         }
+        
+        .sentence-item:hover {
+            background: #f1f5f9;
+            transform: translateX(4px);
+            box-shadow: var(--shadow-light);
+        }
+        
         .sentence-item:last-child {
             margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
         }
+        
         .sentence-item h4 {
             margin-top: 0;
-            color: #007bff;
-            font-size: 18px;
-            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 1.125rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        
+        .sentence-item h4::before {
+            content: '📚';
+            font-size: 1rem;
+        }
+        
         .sentence-item p {
             font-size: 16px;
-            line-height: 1.8;
+            line-height: 1.7;
             white-space: pre-wrap;
-            color: #555;
+            color: var(--text-accent);
+            margin: 0;
         }
-        .sentence-item word {
-            font-weight: bold;
-        }
+        
         .sentence-item .english {
-            white-space: pre-wrap;
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+            margin: 2px;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
         }
+        
+        .sentence-item .english:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.4);
+        }
+        
         .sentence-item .chinese {
-            font-style: italic;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+            margin: 2px;
+            box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+        }
+        
+        .sentence-item .chinese:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.4);
         }
         .sentence-item specil {
             font-style: italic;
             text-decoration: underline;
         }
-        .navigation {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+        .sentence-item word {
+            font-weight: bold;
         }
+        
+        
         .nav-button {
-            background-color: #007bff;
+            background: var(--background-gradient);
             color: white;
             border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 14px 28px;
+            border-radius: var(--radius-small);
             cursor: pointer;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+            box-shadow: var(--shadow-medium);
+            position: relative;
+            overflow: hidden;
         }
+        
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .nav-button:hover:not(:disabled)::before {
+            left: 100%;
+        }
+        
         .nav-button:hover:not(:disabled) {
-            background-color: #0056b3;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
+        
+        .nav-button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        
         .nav-button:disabled {
-            background-color: #cccccc;
+            background: linear-gradient(135deg, #9ca3af, #6b7280);
             cursor: not-allowed;
             box-shadow: none;
+            opacity: 0.6;
         }
-        #sentence-number {
-            text-align: center;
-            font-weight: bold;
-            color: #555;
-            font-size: 18px;
+        
+        .nav-button:disabled::before {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 16px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .content-wrapper {
+                padding: 20px;
+            }
+            
+            
+            .sentence-item {
+                padding: 16px;
+            }
+            
+            
+            .nav-button {
+                width: 100%;
+                max-width: 200px;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide-in {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
     </style>
 </head>
 <body>
-
-    <h1>100个句子搞定高考3500词</h1>
-
-    <div class="navigation">
-        <button id="prev-btn" class="nav-button">上一句</button>
-        <div id="sentence-number"></div>
-        <button id="next-btn" class="nav-button">下一句</button>
+    <div class="app-container">
+        <div class="header">
+            <div class="header-nav">
+                <button id="prev-btn" class="nav-button">
+                    <span>⬅️</span> 上一句
+                </button>
+            </div>
+            <h1>100个句子搞定高考3500词</h1>
+            <div class="header-nav">
+                <button id="next-btn" class="nav-button">
+                    下一句 <span>➡️</span>
+                </button>
+            </div>
+        </div>
+        
+        <div id="sentence-container"></div>
     </div>
-
-    <div id="sentence-container"></div>
 
     <script>
         const sentenceContainer = document.getElementById('sentence-container');
         const prevBtn = document.getElementById('prev-btn');
         const nextBtn = document.getElementById('next-btn');
-        const sentenceNumberDisplay = document.getElementById('sentence-number');
         let sentences = [];
         let currentIndex = 39;
 
@@ -147,10 +359,10 @@
                     if (Object.hasOwnProperty.call(sentenceData, key)) {
                         const value = sentenceData[key] || '';
                         sentenceHTML += `
-                            <div class="sentence-item">
+                            <div class="sentence-item fade-in">
                                 <h4>${key}</h4>
                                 <p>${value.toString().replace(/\n/g, '<br>')
-                                    .replace(/<english>(.*?)<\/english>/g, '<span class="english" onclick="xxx(\'$1\')">📢 $1</span>')
+                                    .replace(/<english>(.*?)<\/english>/g, '<span class="english" onclick="xxx(\'$1\')">🔊 $1</span>')
                                     .replace(/<chinese>(.*?)<\/chinese>/g, '<span class="chinese" onclick="xxx(\'$1\')">$1</span>')}</p>
 
                             </div>
@@ -159,7 +371,7 @@
                 }
 
                 sentenceContainer.innerHTML = sentenceHTML;
-                sentenceNumberDisplay.textContent = `${currentIndex + 1} / ${sentences.length}`;
+                
                 updateButtons();
             }
         }
